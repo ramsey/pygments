@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "symfony/process": "^3.0 || ^4.0"
+        "symfony/process": "^5.2.4"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",
