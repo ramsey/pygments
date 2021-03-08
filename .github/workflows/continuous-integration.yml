@@ -94,3 +94,5 @@ jobs:
       - name: "Publish coverage report to Codecov"
         uses: "codecov/codecov-action@v1"
         if: ${{ matrix.python-version==3.9 && matrix.php-version==8.0 }}
+        with:
+          name: "php-${{ matrix.php-version }}-composer-${{ matrix.composer-dependencies }}-python-${{ matrix.python-version }}-pygments-${{ matrix.pygments-version }}"
