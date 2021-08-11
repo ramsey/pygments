@@ -34,18 +34,18 @@ composer require ramsey/pygments
 
 ### Requirements
 
-* PHP 7.3 or greater (including PHP 8)
+* PHP 7.4 or greater (including PHP 8)
 * Python
 * Pygments (`pip install Pygments`)
 
 Python and Pygments versions supported:
 
-| Pygments:  | 1.6 | 2.0 | 2.1 | 2.2 | 2.3 | 2.4 | 2.5 | 2.6 | 2.7 | 2.8 |
-| :--------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| Python 3.6 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.7 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.8 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.9 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Pygments:  | 2.2 | 2.3 | 2.4 | 2.5 | 2.6 | 2.7 | 2.8 |
+| :--------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Python 3.6 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.7 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.8 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.9 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
 
 ## Usage
 
