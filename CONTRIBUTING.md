@@ -79,20 +79,18 @@ When you do begin working on your feature, here are some guidelines to consider:
   ramsey/pygments automatically runs tests for pull requests. However,
   running the tests locally will help save time. _Hint: run `composer test`._
 * **Use topic/feature branches.** Please do not ask to pull from your main branch.
-  * For more information, see "[Understanding the GitHub flow][gh-flow]."
+    * For more information, see "[Understanding the GitHub flow][gh-flow]."
 * **Submit one feature per pull request.** If you have multiple features you
   wish to submit, please break them into separate pull requests.
-<!--
 * **Write good commit messages.** This project follows the
   [Conventional Commits][] specification and uses Git hooks to ensure all
   commits follow this standard. Running `composer install` will set up the Git
   hooks, so when you run `git commit`, you'll be prompted to create a commit
   using the Conventional Commits rules.
--->
 
 ## Developing
 
-To develop this project, you will need [PHP](https://www.php.net) 7.3 or greater
+To develop this project, you will need [PHP](https://www.php.net) 7.4 or greater
 and [Composer](https://getcomposer.org).
 
 After cloning this repository locally, execute the following commands:
@@ -122,18 +120,15 @@ composer list dev
 This project follows a superset of [PSR-12](https://www.php-fig.org/psr/psr-12/)
 coding standards, enforced by [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-CaptainHook will run PHP_CodeSniffer before committing. It will attempt to fix
-any errors it can, and it will reject the commit if there are any un-fixable
-issues. Many issues can be fixed automatically and will be done so pre-commit.
+CaptainHook will run coding standards checks before committing.
 
-You may lint the entire codebase using PHP_CodeSniffer with the following
-commands:
+You may lint the codebase manually using the following commands:
 
 ``` bash
 # Lint
 composer dev:lint
 
-# Lint and autofix
+# Attempt to auto-fix coding standards issues
 composer dev:lint:fix
 ```
 
@@ -143,9 +138,7 @@ This project uses a combination of [PHPStan](https://github.com/phpstan/phpstan)
 and [Psalm](https://github.com/vimeo/psalm) to provide static analysis of PHP
 code.
 
-CaptainHook will run PHPStan and Psalm before committing. The pre-commit hook
-does not attempt to fix any static analysis errors. Instead, the commit will
-fail, and you must fix the errors manually.
+CaptainHook will run static analysis checks before committing.
 
 You may run static analysis manually across the whole codebase with the
 following command:
@@ -172,6 +165,9 @@ command line, while in the project root directory:
 ```
 composer test
 ```
+
+CaptainHook will automatically run all tests before pushing to the remote
+repository.
 
 Keep in mind that we test against multiple versions of PHP, Python, and Pygments.
 Check out [PHPBrew](https://github.com/phpbrew/phpbrew) for running multiple

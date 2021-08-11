@@ -19,30 +19,25 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "symfony/process": "^3.0 || ^4.0 || ^5.0"
     },
     "require-dev": {
-        "captainhook/captainhook": "^5.4",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-        "ergebnis/composer-normalize": "^2.13",
-        "mockery/mockery": "^1.3",
-        "php-parallel-lint/php-parallel-lint": "^1.2",
-        "phpcsstandards/phpcsextra": "^1.0@alpha",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^0.12.80",
-        "phpstan/phpstan-mockery": "^0.12.13",
-        "phpstan/phpstan-phpunit": "^0.12.18",
-        "phpunit/phpunit": "^9.4",
-        "psalm/plugin-mockery": "^0.7.0",
-        "psalm/plugin-phpunit": "^0.15.1",
-        "slevomat/coding-standard": "^6.4",
-        "squizlabs/php_codesniffer": "^3.5",
-        "symfony/finder": "^5.2",
-        "vimeo/psalm": "^4.6"
+        "ramsey/devtools": "^1.7"
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "captainhook": {
+            "force-install": true
+        },
+        "ramsey/conventional-commits": {
+            "configFile": "conventional-commits.json"
+        },
+        "ramsey/devtools": {
+            "command-prefix": "dev"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -55,47 +50,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": "captainhook install --ansi -f -s",
-        "dev:analyze": [
-            "@dev:analyze:phpstan",
-            "@dev:analyze:psalm"
-        ],
-        "dev:analyze:phpstan": "phpstan --memory-limit=1G analyse",
-        "dev:analyze:psalm": "psalm --diff --config=psalm.xml",
-        "dev:build:clean": "git clean -fX build/.",
-        "dev:build:clear-cache": "git clean -fX build/cache/.",
-        "dev:lint": "phpcs --cache=build/cache/phpcs.cache",
-        "dev:lint:fix": "./bin/lint-fix.sh",
-        "dev:test": "phpunit",
-        "dev:test:all": [
-            "@dev:lint",
-            "@dev:analyze",
-            "@dev:test"
-        ],
-        "dev:test:coverage:ci": "phpunit --colors=always --coverage-clover build/coverage/clover.xml --coverage-xml build/coverage/coverage-xml --log-junit build/coverage/junit.xml",
-        "dev:test:coverage:html": "phpunit --colors=always --coverage-html build/coverage/coverage-html",
-        "pre-commit": [
-            "@dev:lint:fix",
-            "@dev:lint",
-            "@dev:analyze"
-        ],
-        "test": "@dev:test:all"
-    },
-    "scripts-descriptions": {
-        "dev:analyze": "Performs static analysis on the code base.",
-        "dev:analyze:phpstan": "Runs the PHPStan static analyzer.",
-        "dev:analyze:psalm": "Runs the Psalm static analyzer.",
-        "dev:build:clean": "Removes everything not under version control from the build directory.",
-        "dev:build:clear-cache": "Removes everything not under version control from build/cache/.",
-        "dev:lint": "Checks all source code for coding standards issues.",
-        "dev:lint:fix": "Checks source code for coding standards issues and fixes them, if possible.",
-        "dev:test": "Runs the full unit test suite.",
-        "dev:test:all": "Runs linting, static analysis, and unit tests.",
-        "dev:test:coverage:ci": "Runs the unit test suite and generates a Clover coverage report.",
-        "dev:test:coverage:html": "Runs the unit tests suite and generates an HTML coverage report.",
-        "pre-commit": "These commands are run as part of a Git pre-commit hook installed using captainhook/captainhook. Each command should be prepared to accept a list of space-separated staged files.",
-        "test": "Shortcut to run the full test suite."
-    }
+    "prefer-stable": true
 }

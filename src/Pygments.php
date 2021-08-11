@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Pygments;
 
+use IteratorAggregate;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -31,8 +32,7 @@ use const PREG_SET_ORDER;
  */
 class Pygments
 {
-    /** @var string */
-    private $pygmentize;
+    private string $pygmentize;
 
     /**
      * Constructor
@@ -175,6 +175,9 @@ class Pygments
         return ProcessBuilder::create()->setPrefix($this->pygmentize);
     }
 
+    /**
+     * @param Process & IteratorAggregate<string, string> $process
+     */
     protected function getOutput(Process $process): string
     {
         $process->run();

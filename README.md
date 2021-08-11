@@ -5,15 +5,13 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/ramsey/pygments"><img src="http://img.shields.io/badge/source-ramsey/pygments-blue.svg?style=flat-square" alt="Source Code"></a>
+    <a href="https://github.com/ramsey/pygments"><img src="https://img.shields.io/badge/source-ramsey/pygments-blue.svg?style=flat-square" alt="Source Code"></a>
     <a href="https://packagist.org/packages/ramsey/pygments"><img src="https://img.shields.io/packagist/v/ramsey/pygments.svg?style=flat-square&label=release" alt="Download Package"></a>
     <a href="https://php.net"><img src="https://img.shields.io/packagist/php-v/ramsey/pygments.svg?style=flat-square&colorB=%238892BF" alt="PHP Programming Language"></a>
-    <a href="https://github.com/ramsey/pygments/actions?query=workflow%3ACI"><img src="https://img.shields.io/github/workflow/status/ramsey/pygments/CI?label=CI&logo=github&style=flat-square" alt="Build Status"></a>
+    <a href="https://github.com/ramsey/pygments/blob/main/LICENSE"><img src="https://img.shields.io/packagist/l/ramsey/pygments.svg?style=flat-square&colorB=darkcyan" alt="Read License"></a>
+    <a href="https://github.com/ramsey/pygments/actions/workflows/continuous-integration.yml"><img src="https://img.shields.io/github/workflow/status/ramsey/pygments/build/main?style=flat-square&logo=github" alt="Build Status"></a>
     <a href="https://codecov.io/gh/ramsey/pygments"><img src="https://img.shields.io/codecov/c/gh/ramsey/pygments?label=codecov&logo=codecov&style=flat-square" alt="Codecov Code Coverage"></a>
     <a href="https://shepherd.dev/github/ramsey/pygments"><img src="https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fshepherd.dev%2Fgithub%2Framsey%2Fpygments%2Fcoverage" alt="Psalm Type Coverage"></a>
-    <a href="https://github.com/ramsey/pygments/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/ramsey/pygments.svg?style=flat-square&colorB=darkcyan" alt="Read License"></a>
-    <a href="https://packagist.org/packages/ramsey/pygments/stats"><img src="https://img.shields.io/packagist/dt/ramsey/pygments.svg?style=flat-square&colorB=darkmagenta" alt="Package downloads on Packagist"></a>
-    <a href="https://phpc.chat/channel/ramsey"><img src="https://img.shields.io/badge/phpc.chat-%23ramsey-darkslateblue?style=flat-square" alt="Chat with the maintainers"></a>
 </p>
 
 ## About
@@ -104,12 +102,20 @@ $pygments = new Pygments('/path/to/pygmentize');
 Contributions are welcome! To contribute, please familiarize yourself with
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Coordinated Disclosure
+
+Keeping user information safe and secure is a top priority, and we welcome the
+contribution of external security researchers. If you believe you've found a
+security issue in software that is maintained in this repository, please read
+[SECURITY.md](SECURITY.md) for instructions on submitting a vulnerability report.
+
 ## Copyright and License
 
-Copyrights for portions of ramsey/pygments are held by
-[Kazuyuki Hayashi](https://github.com/kzykhys) as part of
-[Pygments.php](https://github.com/kzykhys/Pygments.php). All other copyrights
-for ramsey/pygments are held by [Ben Ramsey](https://benramsey.com).
+The ramsey/pygments library is copyright © [Ben Ramsey](https://benramsey.com)
+and licensed for use under the terms of the MIT License (MIT).
 
-The ramsey/pygments library is licensed for use under the terms of the
-MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
+ramsey/pygments is a fork of [Pygments.php](https://github.com/kzykhys/Pygments.php).
+The Pygments.php library is copyright © [Kazuyuki Hayashi](https://github.com/kzykhys)
+and licensed for use under the terms of the MIT License (MIT).
+
+Please see [LICENSE](LICENSE) for more information.

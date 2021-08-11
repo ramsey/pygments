@@ -29,6 +29,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Pygments;
 
+use IteratorAggregate;
 use IteratorIterator;
 use ReflectionClass;
 use ReflectionMethod;
@@ -48,13 +49,13 @@ use function is_array;
 class ProcessBuilder
 {
     /** @var string[] */
-    private $arguments;
+    private array $arguments;
 
     /** @var IteratorIterator|mixed|resource|string|null */
     private $input = null;
 
     /** @var string[] */
-    private $prefix = [];
+    private array $prefix = [];
 
     /**
      * @param string[] $arguments An array of arguments
@@ -129,6 +130,8 @@ class ProcessBuilder
 
     /**
      * Creates a Process instance and returns it.
+     *
+     * @return Process & IteratorAggregate<string, string>
      */
     public function getProcess(): Process
     {
@@ -153,15 +156,7 @@ class ProcessBuilder
         }
 
         $commandLine = array_shift($command) . ' ';
-        $commandLine .= implode(
-            ' ',
-            array_map(
-                function (string $v): string {
-                    return escapeshellarg($v);
-                },
-                $command,
-            ),
-        );
+        $commandLine .= implode(' ', array_map(fn (string $v): string => escapeshellarg($v), $command));
 
         /**
          * @psalm-suppress InvalidArgument

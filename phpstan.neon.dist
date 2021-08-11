@@ -1,7 +1,13 @@
 parameters:
     tmpDir: ./build/cache/phpstan
     level: max
-    checkMissingIterableValueType: false
     paths:
         - ./src
         - ./tests
+    ignoreErrors:
+        -
+            message: '#Method Ramsey\\Pygments\\ProcessBuilder::getProcess\(\) return type has no value type specified in iterable type#'
+            path: src/ProcessBuilder.php
+        -
+            message: '#Method Ramsey\\Pygments\\Pygments::getOutput\(\) has parameter \$process with no value type specified in iterable type#'
+            path: src/Pygments.php

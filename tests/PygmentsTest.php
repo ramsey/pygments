@@ -20,8 +20,7 @@ use function str_replace;
 
 class PygmentsTest extends TestCase
 {
-    /** @var Pygments */
-    protected $pygments;
+    protected Pygments $pygments;
 
     protected function setUp(): void
     {
