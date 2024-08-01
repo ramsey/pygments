@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "ramsey/devtools": "^1.7",
-        "symfony/finder": "^5.2"
+        "symfony/finder": "^7.1"
     },
     "config": {
         "sort-packages": true
