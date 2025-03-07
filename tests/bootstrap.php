@@ -45,6 +45,8 @@ if (preg_match('/(\d+\.\d+)(\.\d+)?/', $pygmentizeVersion, $matches) === 0) {
     exit(1);
 }
 
+assert(isset($matches[1]));
+
 if (!file_exists(__DIR__ . '/fixtures/pygments-' . $matches[1])) {
     fwrite(
         STDERR,

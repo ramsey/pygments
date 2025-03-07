@@ -58,7 +58,7 @@ class Pygments
         string $code,
         ?string $lexer = null,
         ?string $formatter = null,
-        array $options = []
+        array $options = [],
     ): string {
         $builder = $this->createProcessBuilder();
 

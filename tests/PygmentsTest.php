@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ramsey\Pygments\Test;
 
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Pygments\Pygments;
 use ReflectionMethod;
@@ -27,28 +28,24 @@ class PygmentsTest extends TestCase
         $this->pygments = new Pygments((string) getenv('PYGMENTIZE_PATH'));
     }
 
-    /**
-     * @dataProvider provideSamples
-     */
+    #[DataProvider('provideSamples')]
     public function testHighlight(
         string $input,
         string $expected,
         string $expectedL,
         string $expectedG,
-        string $lexer
+        string $lexer,
     ): void {
         $this->assertSame($expectedG, $this->pygments->highlight($input, null, 'html'));
         $this->assertSame($expected, $this->pygments->highlight($input, $lexer, 'html'));
         $this->assertSame($expectedL, $this->pygments->highlight($input, null, 'html', ['linenos' => 1]));
     }
 
-    /**
-     * @dataProvider provideCss
-     */
+    #[DataProvider('provideCss')]
     public function testGetCss(
         string $expected,
         string $expectedA,
-        string $style
+        string $style,
     ): void {
         $this->assertSame($expected, $this->pygments->getCss($style));
         $this->assertSame($expectedA, $this->pygments->getCss($style, '.syntax'));
@@ -84,7 +81,6 @@ class PygmentsTest extends TestCase
         $process->shouldReceive('getErrorOutput')->once()->andReturn('foobar');
 
         $getOutput = new ReflectionMethod(Pygments::class, 'getOutput');
-        $getOutput->setAccessible(true);
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('foobar');
@@ -99,9 +95,9 @@ class PygmentsTest extends TestCase
     }
 
     /**
-     * @return array<int, string[]>
+     * @return list<array{input: string, expected: string, expectedL: string, expectedG: string, lexer: string}>
      */
-    public function provideSamples(): array
+    public static function provideSamples(): array
     {
         $finder = new Finder();
         $finder
@@ -115,11 +111,11 @@ class PygmentsTest extends TestCase
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $samples[] = [
-                $file->getContents(),
-                (string) file_get_contents(str_replace('.in', '.out', $file->getPathname())),
-                (string) file_get_contents(str_replace('.in', '.linenos.out', $file->getPathname())),
-                (string) file_get_contents(str_replace('.in', '.guess.out', $file->getPathname())),
-                (string) preg_replace('/\..*/', '', $file->getFilename()),
+                'input' => $file->getContents(),
+                'expected' => (string) file_get_contents(str_replace('.in', '.out', $file->getPathname())),
+                'expectedL' => (string) file_get_contents(str_replace('.in', '.linenos.out', $file->getPathname())),
+                'expectedG' => (string) file_get_contents(str_replace('.in', '.guess.out', $file->getPathname())),
+                'lexer' => (string) preg_replace('/\..*/', '', $file->getFilename()),
             ];
         }
 
@@ -127,9 +123,9 @@ class PygmentsTest extends TestCase
     }
 
     /**
-     * @return array<int, string[]>
+     * @return list<array{expected: string, expectedA: string, style: string}>
      */
-    public function provideCss(): array
+    public static function provideCss(): array
     {
         $finder = new Finder();
         $finder
@@ -144,9 +140,9 @@ class PygmentsTest extends TestCase
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $css[] = [
-                $file->getContents(),
-                (string) file_get_contents(str_replace('.css', '.prefix.css', $file->getPathname())),
-                str_replace('.css', '', $file->getFilename()),
+                'expected' => $file->getContents(),
+                'expectedA' => (string) file_get_contents(str_replace('.css', '.prefix.css', $file->getPathname())),
+                'style' => str_replace('.css', '', $file->getFilename()),
             ];
         }
 
