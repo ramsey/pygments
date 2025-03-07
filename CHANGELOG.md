@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.0.0 - 2025-03-07
+
+### Added
+
+- Introduced a `PygmentizeProcessFailed` exception that implements the newly introduced `PygmentsError` interface.
+
+### Changed
+
+- Minimum required version of PHP is 8.2.
+
+- Minimum required version of symfony/process is 7.1.7.
+
+- The `Pygments` and `ProcessBuilder` classes are now marked `final`.
+
+- When `pygmentize` results in a failure, this library now throws `PygmentizeProcessFailed` instead of a plain `RuntimeException`.
+
+- Updated code to use PHP 8.2 features, such as readonly classes.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.0.2 - 2021-03-07
 
 ### Added
