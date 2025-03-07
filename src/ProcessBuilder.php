@@ -159,7 +159,6 @@ class ProcessBuilder
         $commandLine .= implode(' ', array_map(fn (string $v): string => escapeshellarg($v), $command));
 
         /**
-         * @psalm-suppress InvalidArgument
          * @phpstan-ignore-next-line
          */
         return new Process($commandLine, null, null, $this->input);
