@@ -48,7 +48,7 @@ Python and Pygments versions tested:
 > [!NOTE]
 > ramsey/pygments will likely work on other versions of Python and Pygments, but
 > the versions tested against are limited to keep the GitHub Actions job matrix
-> at a reasonable level. If you encounter a version of Python or Pygments that
+> at a reasonable size. If you encounter a version of Python or Pygments that
 > does not work, please [open an issue](https://github.com/ramsey/pygments/issues).
 
 ## Usage
