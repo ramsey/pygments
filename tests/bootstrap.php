@@ -47,15 +47,4 @@ if (preg_match('/(\d+\.\d+)(\.\d+)?/', $pygmentizeVersion, $matches) === 0) {
 
 assert(isset($matches[1]));
 
-if (!file_exists(__DIR__ . '/fixtures/pygments-' . $matches[1])) {
-    fwrite(
-        STDERR,
-        sprintf(
-            "No test fixtures directory found for Pygments version %s.\n",
-            $matches[1],
-        ),
-    );
-    exit(1);
-}
-
 putenv("PYGMENTIZE_VERSION={$matches[1]}");

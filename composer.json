@@ -37,6 +37,7 @@
         "ramsey/coding-standard": "^2.3",
         "ramsey/conventional-commits": "^1.6",
         "roave/security-advisories": "dev-latest",
+        "spatie/phpunit-snapshot-assertions": "^5.1",
         "symfony/finder": "^5.2"
     },
     "minimum-stability": "dev",
