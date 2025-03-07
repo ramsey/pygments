@@ -29,56 +29,38 @@ declare(strict_types=1);
 
 namespace Ramsey\Pygments;
 
-use IteratorAggregate;
-use IteratorIterator;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionNamedType;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessUtils;
 
-use function array_map;
-use function array_merge;
-use function array_shift;
-use function count;
-use function escapeshellarg;
-use function implode;
-use function is_array;
-
-class ProcessBuilder
+final class ProcessBuilder
 {
-    /** @var string[] */
-    private array $arguments;
+    private mixed $input = null;
 
-    /** @var IteratorIterator|mixed|resource|string|null */
-    private $input = null;
-
-    /** @var string[] */
+    /**
+     * @var list<string>
+     */
     private array $prefix = [];
 
     /**
-     * @param string[] $arguments An array of arguments
+     * @param list<string> $arguments An array of arguments
      */
-    public function __construct(array $arguments = [])
+    public function __construct(private array $arguments = [])
     {
-        $this->arguments = $arguments;
     }
 
     /**
      * Creates a process builder instance.
      *
-     * @param string[] $arguments An array of arguments
+     * @param list<string> $arguments An array of arguments
      */
-    public static function create(array $arguments = []): ProcessBuilder
+    public static function create(array $arguments = []): self
     {
-        return new ProcessBuilder($arguments);
+        return new self($arguments);
     }
 
     /**
      * Adds an unescaped argument to the command string.
-     *
-     * @param string $argument A command argument
      */
     public function add(string $argument): self
     {
@@ -92,11 +74,11 @@ class ProcessBuilder
      *
      * The prefix is preserved when resetting arguments.
      *
-     * @param string|string[] $prefix A command prefix or an array of command prefixes
+     * @param string | list<string> $prefix A command prefix or an array of command prefixes
      */
-    public function setPrefix($prefix): self
+    public function setPrefix(array | string $prefix): self
     {
-        $this->prefix = is_array($prefix) ? $prefix : [$prefix];
+        $this->prefix = (array) $prefix;
 
         return $this;
     }
@@ -104,10 +86,9 @@ class ProcessBuilder
     /**
      * Sets the arguments of the process.
      *
-     * Arguments must not be escaped.
-     * Previous arguments are removed.
+     * Arguments must not be escaped. Previous arguments are removed.
      *
-     * @param string[] $arguments
+     * @param list<string> $arguments
      */
     public function setArguments(array $arguments): self
     {
@@ -118,10 +99,8 @@ class ProcessBuilder
 
     /**
      * Sets the input of the process.
-     *
-     * @param mixed $input The input content
      */
-    public function setInput($input): self
+    public function setInput(mixed $input): self
     {
         $this->input = ProcessUtils::validateInput(__METHOD__, $input);
 
@@ -130,37 +109,16 @@ class ProcessBuilder
 
     /**
      * Creates a Process instance and returns it.
-     *
-     * @return Process & IteratorAggregate<string, string>
      */
     public function getProcess(): Process
     {
-        if (count($this->prefix) === 0 && count($this->arguments) === 0) {
+        if ($this->prefix === [] && $this->arguments === []) {
             throw new LogicException('You must add() command arguments before calling getProcess().');
         }
 
-        $command = array_merge($this->prefix, $this->arguments);
-
-        $reflectedProcess = new ReflectionClass(Process::class);
-
-        /** @var ReflectionMethod $reflectedConstructor */
-        $reflectedConstructor = $reflectedProcess->getConstructor();
-
-        $param = $reflectedConstructor->getParameters()[0];
-
-        /** @var ReflectionNamedType|null $type */
-        $type = $param->getType();
-
-        if ($type !== null && $type->getName() === 'array') {
-            return new Process($command, null, null, $this->input);
-        }
-
-        $commandLine = array_shift($command) . ' ';
-        $commandLine .= implode(' ', array_map(fn (string $v): string => escapeshellarg($v), $command));
-
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return new Process($commandLine, null, null, $this->input);
+        return new Process(
+            command: [...$this->prefix, ...$this->arguments],
+            input: $this->input,
+        );
     }
 }

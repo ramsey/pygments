@@ -6,18 +6,15 @@ namespace Ramsey\Pygments\Test;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Pygments\PygmentizeProcessFailed;
 use Ramsey\Pygments\Pygments;
 use ReflectionMethod;
-use RuntimeException;
-use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\Process\Process;
 
 use function getenv;
 
-class PygmentsTest extends TestCase
+final class PygmentsTest extends TestCase
 {
-    use MatchesSnapshots;
-
     protected Pygments $pygments;
 
     protected function setUp(): void
@@ -56,8 +53,8 @@ class PygmentsTest extends TestCase
 
         $getOutput = new ReflectionMethod(Pygments::class, 'getOutput');
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('foobar');
+        $this->expectException(PygmentizeProcessFailed::class);
+        $this->expectExceptionMessage('An error occurred while running pygmentize: foobar');
 
         $getOutput->invoke($this->pygments, $process);
     }

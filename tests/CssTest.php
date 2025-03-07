@@ -12,7 +12,7 @@ use Spatie\Snapshots\MatchesSnapshots;
 
 use function getenv;
 
-class CssTest extends TestCase
+final class CssTest extends TestCase
 {
     use MatchesSnapshots;
 

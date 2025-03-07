@@ -15,14 +15,10 @@ declare(strict_types=1);
 
 namespace Ramsey\Pygments;
 
-use IteratorAggregate;
-use RuntimeException;
 use Symfony\Component\Process\Process;
 
-use function count;
 use function explode;
 use function preg_match_all;
-use function sprintf;
 use function trim;
 
 use const PREG_SET_ORDER;
@@ -30,27 +26,23 @@ use const PREG_SET_ORDER;
 /**
  * A PHP wrapper for Pygments, the Python syntax highlighter
  */
-class Pygments
+final readonly class Pygments
 {
-    private string $pygmentize;
-
     /**
-     * Constructor
-     *
-     * @param string $pygmentize The path to pygmentize command
+     * @param string $pygmentize The path to the `pygmentize` command.
+     *     By default, this uses `pygmentize` found in the `PATH`.
      */
-    public function __construct(string $pygmentize = 'pygmentize')
+    public function __construct(private string $pygmentize = 'pygmentize')
     {
-        $this->pygmentize = $pygmentize;
     }
 
     /**
      * Highlight the input code
      *
      * @param string $code The code to highlight
-     * @param string|null $lexer The name of the lexer (php, html, ...)
-     * @param string|null $formatter The name of the formatter (html, ansi, ...)
-     * @param array<string, string|int> $options An array of options
+     * @param string | null $lexer The name of the lexer (php, html, ...)
+     * @param string | null $formatter The name of the formatter (html, ansi, ...)
+     * @param array<string, string | int> $options An array of options
      *
      * @return string The code with syntax highlighting applied, in the specified format
      */
@@ -62,20 +54,19 @@ class Pygments
     ): string {
         $builder = $this->createProcessBuilder();
 
-        if ($lexer) {
+        if ($lexer !== null) {
             $builder->add('-l')->add($lexer);
         } else {
+            // Guess the lexer.
             $builder->add('-g');
         }
 
-        if ($formatter) {
+        if ($formatter !== null) {
             $builder->add('-f')->add($formatter);
         }
 
-        if (count($options)) {
-            foreach ($options as $key => $value) {
-                $builder->add('-P')->add(sprintf('%s=%s', $key, $value));
-            }
+        foreach ($options as $key => $value) {
+            $builder->add('-P')->add("$key=$value");
         }
 
         $process = $builder->setInput($code)->getProcess();
@@ -87,7 +78,7 @@ class Pygments
      * Gets style definition
      *
      * @param string $style The name of the style (default, colorful, ...)
-     * @param string|null $selector A CSS selector prefix to prepend to the CSS classes
+     * @param string | null $selector A CSS selector prefix to prepend to the CSS classes
      *
      * @return string The Pygments CSS definition for the specified style
      */
@@ -97,7 +88,7 @@ class Pygments
         $builder->add('-f')->add('html');
         $builder->add('-S')->add($style);
 
-        if ($selector) {
+        if ($selector !== null) {
             $builder->add('-a')->add($selector);
         }
 
@@ -170,20 +161,19 @@ class Pygments
         return $this->parseList($output);
     }
 
-    protected function createProcessBuilder(): ProcessBuilder
+    private function createProcessBuilder(): ProcessBuilder
     {
         return ProcessBuilder::create()->setPrefix($this->pygmentize);
     }
 
-    /**
-     * @param Process & IteratorAggregate<string, string> $process
-     */
-    protected function getOutput(Process $process): string
+    private function getOutput(Process $process): string
     {
         $process->run();
 
         if (!$process->isSuccessful()) {
-            throw new RuntimeException($process->getErrorOutput());
+            throw new PygmentizeProcessFailed(
+                'An error occurred while running pygmentize: ' . $process->getErrorOutput(),
+            );
         }
 
         return $process->getOutput();
@@ -192,7 +182,7 @@ class Pygments
     /**
      * @return array<string, string>
      */
-    protected function parseList(string $input): array
+    private function parseList(string $input): array
     {
         $list = [];
 
