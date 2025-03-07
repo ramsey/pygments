@@ -35,6 +35,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^11.5 || ^12.0",
         "ramsey/coding-standard": "^2.3",
+        "ramsey/composer-repl": "^1.5",
         "ramsey/conventional-commits": "^1.6",
         "roave/security-advisories": "dev-latest",
         "spatie/phpunit-snapshot-assertions": "^5.1"
@@ -57,7 +58,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "ergebnis/composer-normalize": true,
             "php-http/discovery": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "ramsey/composer-repl": true
         },
         "sort-packages": true
     },
