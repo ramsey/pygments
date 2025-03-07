@@ -65,6 +65,7 @@ jobs:
 
   code-coverage:
     name: "Code coverage"
+    needs: ["coding-standards", "static-analysis"]
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout repository"
@@ -95,6 +96,7 @@ jobs:
 
   unit-tests:
     name: "PHP ${{ matrix.php-version }}, Python ${{ matrix.python-version }}, Pygments ${{ matrix.pygments-version }}"
+    needs: ["code-coverage"]
     runs-on: "ubuntu-latest"
 
     strategy:
