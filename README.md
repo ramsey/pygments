@@ -33,18 +33,23 @@ composer require ramsey/pygments
 
 ### Requirements
 
-* PHP 7.4 or greater (including PHP 8)
+* PHP 8.2 or greater
 * Python
 * Pygments (`pip install Pygments`)
 
-Python and Pygments versions supported:
+Python and Pygments versions tested:
 
-| Pygments:  | 2.2 | 2.3 | 2.4 | 2.5 | 2.6 | 2.7 | 2.8 |
-| :--------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| Python 3.6 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.7 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.8 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
-| Python 3.9 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Pygments:   | 2.17 | 2.18 | 2.19 |
+|:------------|:----:|:----:|:----:|
+| Python 3.11 |  ✔   |  ✔   |  ✔   |
+| Python 3.12 |  ✔   |  ✔   |  ✔   |
+| Python 3.13 |  ✔   |  ✔   |  ✔   |
+
+> [!NOTE]
+> ramsey/pygments will likely work on other versions of Python and Pygments, but
+> the versions tested against are limited to keep the GitHub Actions job matrix
+> at a reasonable level. If you encounter a version of Python or Pygments that
+> does not work, please [open an issue](https://github.com/ramsey/pygments/issues).
 
 ## Usage
 
@@ -74,7 +79,7 @@ $prefixedCss = $pygments->getCss('default', '.syntax');
 use Ramsey\Pygments\Pygments;
 
 $pygments = new Pygments();
-$pygments->guessLexer('foo.rb'); // ruby
+$lexer = $pygments->guessLexer('foo.rb'); // ruby
 ```
 
 ### Get a list of lexers/formatters/styles
@@ -83,9 +88,9 @@ $pygments->guessLexer('foo.rb'); // ruby
 use Ramsey\Pygments\Pygments;
 
 $pygments = new Pygments();
-$pygments->getLexers()
-$pygments->getFormatters();
-$pygments->getStyles();
+$lexers = $pygments->getLexers()
+$formatters = $pygments->getFormatters();
+$styles = $pygments->getStyles();
 ```
 
 ### Set a custom `pygmentize` path
