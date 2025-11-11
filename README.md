@@ -44,6 +44,7 @@ Python and Pygments versions tested:
 | Python 3.11 |  ✔   |  ✔   |  ✔   |
 | Python 3.12 |  ✔   |  ✔   |  ✔   |
 | Python 3.13 |  ✔   |  ✔   |  ✔   |
+| Python 3.14 |  ✔   |  ✔   |  ✔   |
 
 > [!NOTE]
 > ramsey/pygments will likely work on other versions of Python and Pygments, but
